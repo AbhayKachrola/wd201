@@ -30,7 +30,8 @@ const todoList = () => {
     };
   
     const toDisplayableList = (list1) => {
-      const formattedItems = list1.map(todo => {
+      const formattedItems = list1
+      .map(todo => {
         return `${todo.completed ? '[x]' : '[ ]'} ${todo.title} ${todo.dueDate === today ? '' : todo.dueDate}`
       });
     
