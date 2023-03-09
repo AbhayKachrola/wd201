@@ -1,25 +1,25 @@
 /* eslint-disable no-undef */
 let todoList = require("../todo");
 const { all, markAsComplete, add, overdue, dueToday, dueLater } = todoList();
-describe("Todo test cases", () => {
+describe("Todo test", () => {
   beforeAll(() => {
     const today = new Date();
     const oneDay = 60 * 60 * 24 * 1000;
     [
       {
-        title: "Complete assignment",
+        title: "submit assignment",
         completed: false,
         dueDate: new Date(today.getTime() - 1 * oneDay).toLocaleDateString(
           "en-CA"
         ),
       },
       {
-        title: "Go for shopping",
+        title: "Go for home",
         completed: false,
         dueDate: new Date().toLocaleDateString("en-CA"),
       },
       {
-        title: "Complete project",
+        title: "submit project",
         completed: false,
         dueDate: new Date(today.getTime() + 1 * oneDay).toLocaleDateString(
           "en-CA"
@@ -27,11 +27,11 @@ describe("Todo test cases", () => {
       },
     ].forEach(add);
   });
-  test("Add new todo", () => {
+  test("Add a new todo list", () => {
     expect(all.length).toEqual(3);
 
     add({
-      title: "Take the test",
+      title: "Take the test todo",
       completed: false,
       dueDate: new Date().toLocaleDateString("en-CA"),
     });
