@@ -29,7 +29,7 @@ describe("ToDo test Suite", () => {
   test("Should add new todo", () => {
     let count = all.length;
     add({
-      title: "todo",
+      title: "new todo",
       completed: false,
       dueDate: new Date().toLocaleDateString("en-IN"),
     });
@@ -40,7 +40,7 @@ describe("ToDo test Suite", () => {
     markAsComplete(0);
     expect(all[0].completed).toBe(true);
   });
-  test("Retrieves overdue items", () => {
+  test("Should Retrieves overdue items", () => {
     let count = overdue().length;
     add({
       title: "Pay electric bill",
@@ -49,7 +49,7 @@ describe("ToDo test Suite", () => {
     });
     expect(overdue().length).toBe(count + 1);
   });
-  test("Retrieves due today items", () => {
+  test("Should Retrieves due today items", () => {
     let count = dueToday().length;
     add({
       title: "Pay electric bill",
@@ -58,7 +58,7 @@ describe("ToDo test Suite", () => {
     });
     expect(dueToday().length).toBe(count + 1);
   });
-  test("Retrieves due later items", () => {
+  test("Should Retrieves due later items", () => {
     let count = dueLater().length;
     add({
       title: "Pay electric bill",
