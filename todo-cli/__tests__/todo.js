@@ -1,59 +1,70 @@
 /* eslint-disable no-undef */
-let todoList = require("../todo");
-const { all, markAsComplete, add, overdue, dueToday, dueLater } = todoList();
-describe("Todo test", () => {
+const todoList = require("../todo");
+
+const {
+  all,
+  markAsComplete,
+  add,
+  overdue,
+  dueToday,
+  dueLater,
+  today,
+  tomorrow,
+  yesterday,
+} = todoList();
+
+describe("ToDo test Suite", () => {
   beforeAll(() => {
-    const today = new Date();
-    const oneDay = 60 * 60 * 24 * 1000;
-    [
-      {
-        title: "submit assignment",
-        completed: false,
-        dueDate: new Date(today.getTime() - 1 * oneDay).toLocaleDateString(
-          "en-CA"
-        ),
-      },
-      {
-        title: "Go for home",
-        completed: false,
-        dueDate: new Date().toLocaleDateString("en-CA"),
-      },
-      {
-        title: "submit project",
-        completed: false,
-        dueDate: new Date(today.getTime() + 1 * oneDay).toLocaleDateString(
-          "en-CA"
-        ),
-      },
-    ].forEach(add);
-  });
-  test("Add a new todo list", () => {
-    expect(all.length).toEqual(3);
-
     add({
-      title: "Take the test todo",
+      title: "Submit assignment",
+      dueDate: yesterday,
       completed: false,
-      dueDate: new Date().toLocaleDateString("en-CA"),
     });
-
-    expect(all.length).toEqual(4);
+    add({
+      title: "Pay rent",
+      dueDate: today,
+      completed: true,
+    });
   });
-
-  test("Todo mark as complete", () => {
-    expect(all[0].completed).toEqual(false);
+  test("Should add new todo", () => {
+    let count = all.length;
+    add({
+      title: "todo",
+      completed: false,
+      dueDate: new Date().toLocaleDateString("en-IN"),
+    });
+    expect(all.length).toBe(count + 1);
+  });
+  test("Should mark a todo as complete", () => {
+    expect(all[0].completed).toBe(false);
     markAsComplete(0);
-    expect(all[0].completed).toEqual(true);
+    expect(all[0].completed).toBe(true);
   });
-
-  test("Test for overdue", () => {
-    expect(overdue().length).toEqual(1);
+  test("Retrieves overdue items", () => {
+    let count = overdue().length;
+    add({
+      title: "Pay electric bill",
+      dueDate: yesterday,
+      completed: false,
+    });
+    expect(overdue().length).toBe(count + 1);
   });
-
-  test("Test due today", () => {
-    expect(dueToday().length).toEqual(2);
+  test("Retrieves due today items", () => {
+    let count = dueToday().length;
+    add({
+      title: "Pay electric bill",
+      dueDate: today,
+      completed: false,
+    });
+    expect(dueToday().length).toBe(count + 1);
   });
-
-  test("Test for due later", () => {
-    expect(dueLater().length).toEqual(1);
+  test("Retrieves due later items", () => {
+    let count = dueLater().length;
+    add({
+      title: "Pay electric bill",
+      dueDate: tomorrow,
+      completed: false,
+    });
+    expect(dueLater().length).toBe(count + 1);
   });
 });
